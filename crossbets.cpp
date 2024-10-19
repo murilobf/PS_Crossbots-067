@@ -58,9 +58,9 @@ void blackjack(int aposta, Apostador *cliente){
 
 
                 /*O tempo de espera serve pra dar um efeito dramatico*/
-                std:this_thread::sleep_for(std::chrono::milliseconds(500));
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 cout << "\nCarta do jogador: " << cartaJogador;
-                std:this_thread::sleep_for(std::chrono::milliseconds(500));
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 cout << "\nCarta da banca:" << cartaBanca << endl;
 
                 valorJogador += cartaJogador;
