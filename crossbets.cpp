@@ -70,11 +70,11 @@ void blackjack(int aposta, Apostador *cliente){
             assim que chega em 17 ou mais*/
             if(valorBanca < 17){
 
-                valorBanca += cartaBanca;
                 cartaBanca = rand() % 10 + 1;
+                valorBanca += cartaBanca;
 
                 this_thread::sleep_for(chrono::milliseconds(500));
-                cout << "\nCarta da banca:" << cartaBanca << endl;
+                cout << "\nCarta da banca:\n" << cartaBanca << endl;
             }
         }
         /*Para o jogo caso o valor ultrapasse os 21 pontos*/
@@ -310,8 +310,6 @@ void chamaJogos(Apostador *cliente){
 
     while(escolha != 4){
 
-        cout << "Voce possui " << cliente->creditos << " creditos. Continue jogando para aumentar esse numero!!" << endl;
-
         if(escolha == 1){
 
             blackjack(aposta, cliente);
@@ -336,6 +334,7 @@ void chamaJogos(Apostador *cliente){
         /*Parece redundante, mas eh para o caso da pessoa querer parar (sem esse if ele perguntaria mesmo quando a pessoa quer parar)*/
         if(escolha !=4){
 
+            cout << "Voce possui " << cliente->creditos << " creditos. Continue jogando para aumentar esse numero!!\n" << endl;
             cout << "Deseja continuar no mesmo jogo? " << endl;
             cout << "DIGITE 0 PARA PARAR E 1 PARA CONTINUAR " << endl;
 
@@ -407,6 +406,9 @@ void cassino(Apostador *cliente){
 }
 
 int main(){
+
+    /*Inicializa a seed de aleatoriedade para garantir diferentes sequencias*/
+    srand((unsigned)time(NULL));
 
     int qntdInicial = 0;
 
