@@ -40,6 +40,9 @@ void blackjack(int aposta, Apostador *cliente){
     int valorJogador = 0;
     int valorBanca = 0;
 
+    int cartaJogador;
+    int cartaBanca;
+
     while(jogando){
 
         if(valorJogador < 21 && valorBanca < 21){
@@ -49,27 +52,29 @@ void blackjack(int aposta, Apostador *cliente){
 
             cin >> jogando;
 
+            /*Os turnos de jogada do jogador humano*/
             if(jogando){
 
                 /*Gera um numero aleatorio entre 1 e 10, equivalente as cartas do As ao Rei. Cria-se uma nova variavel ao inves de somar diretamente
                 para que o valor da carta possa ser mostrada ao usuario. Para simplificar as coisas o As so vale 1*/
-                int cartaJogador = rand() % 10 + 1;
-                int cartaBanca = rand() % 10 + 1;
-
+                cartaJogador = rand() % 10 + 1;
 
                 /*O tempo de espera serve pra dar um efeito dramatico*/
-                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                this_thread::sleep_for(chrono::milliseconds(500));
                 cout << "\nCarta do jogador: " << cartaJogador;
-                std::this_thread::sleep_for(std::chrono::milliseconds(500));
-                cout << "\nCarta da banca:" << cartaBanca << endl;
 
                 valorJogador += cartaJogador;
+            }
 
-                /*Uma regra de comportamento da banca que achei na internet, onde a banca para de pegar cartas assim que chega em 17 ou mais*/
-                if(valorBanca < 17){
+            /*Os turnos de jogada da banca.Segue uma regra de comportamento da banca que achei na internet, onde a banca para de pegar cartas 
+            assim que chega em 17 ou mais*/
+            if(valorBanca < 17){
 
-                    valorBanca += cartaBanca;
-                }
+                valorBanca += cartaBanca;
+                cartaBanca = rand() % 10 + 1;
+
+                this_thread::sleep_for(chrono::milliseconds(500));
+                cout << "\nCarta da banca:" << cartaBanca << endl;
             }
         }
         /*Para o jogo caso o valor ultrapasse os 21 pontos*/
@@ -301,6 +306,8 @@ void chamaJogos(Apostador *cliente){
     aposta = pedeAposta(cliente);
 
     while(escolha != 4){
+
+        cout << "Voce possui " << cliente->creditos << " creditos. Continue jogando para aumentar esse numero!!" << endl;
 
         if(escolha == 1){
 
