@@ -248,7 +248,10 @@ void roleta(int aposta, Apostador *cliente){
         cout << "Digite 1 para apostar nos numeros de 1 a 12, 2 para apostar nos numeros de 13 a 24 e 3 para apostar nos numeros de 25 a 36 " << endl;
         cin >> numEscolhido;
 
-        /*Verifica se o numero sorteado esta dentro do grupo escolhido pelo jogador, f*/
+        /*Verifica se o numero sorteado esta dentro do grupo escolhido pelo jogador, a condicao basicamente ve se o numero esta dentro dos limites de cada grupo.
+        Exemplificando para facilitar o entendimento da logica: se o jogador pegou o grupo 1 (1-12) e o numero sorteado foi o 13 (que entra na 2ª condicao), 13/12 da 1
+        e sobra 1, com a soma de 1 da condicao fica 2 (que e justamente o grupo do 13), portanto o jogador perde. Agora se o jogador pegou o grupo 1 e o numero sorteado 
+        foi o 12, entra a 2ª condicao onde o numero da divisao da 1 e sobra 0, portanto o jogador vence.*/
         if((((numSorteado / 12) + 1 == numEscolhido && numSorteado % 12 != 0) || ((numSorteado/12) == numEscolhido && numSorteado % 12 == 0)) && numSorteado != 0){
 
             cout << "Parabens, voce ganhou!" << endl;
@@ -351,6 +354,7 @@ void chamaJogos(Apostador *cliente){
 
         /*Novamente, parece redundante mas evita de perguntar quando a pessoa quer sair*/
         if(escolha != 4){
+
             cout << "Digite a quantidade que deseja apostar. Lembrando que voce tem " << cliente->creditos << " creditos" << endl;
             cin >> aposta;
         }
@@ -404,14 +408,23 @@ void cassino(Apostador *cliente){
 
 int main(){
 
-    int qntdInicial;
+    int qntdInicial = 0;
 
     cout << "BEM VINDO AO CROSSBETS" << endl;
     cout << "Cada um de nossos jogos retorna uma porcentagem diferente do valor investido. Mas cuidado, se perder todo o dinheiro sera expulso." << endl;
     cout << "A taxa de retorno de cada jogo sera informada antes de seu inicio.\n" << endl;
 
-    cout << "Insira a quantidade inicial de dinheiro que quer depositar" << endl;
-    cin >> qntdInicial;
+    /*Loop para garantir que a pessoa insira um valor valido*/
+    while(qntdInicial < 1){
+
+        cout << "Insira a quantidade inicial de dinheiro que quer depositar" << endl;
+        cin >> qntdInicial;
+
+        if(qntdInicial < 1){
+
+            cout << "Insira um valor valido (maior que 0)" << endl;
+        }
+    }
 
     Apostador cliente(qntdInicial);
     cassino(&cliente);
