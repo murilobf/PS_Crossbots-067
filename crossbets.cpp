@@ -31,7 +31,8 @@ void blackjack(int aposta, Apostador *cliente){
 
     /*Os dois cout ao inves de 1 foram so pra nao ficar um texto comprido demais*/
     cout << "Sera dada uma carta aleatoria por rodada para voce e outra para a banca, cada carta vale o numero escrito nela, com o as valendo 1 e o rei, ";
-    cout << "a rainha e a dama valendo 10. O pagamento e de 1.5x o valor investido\n" << endl;
+    cout << "a rainha e a dama valendo 10. Ganha quem chegar o mais proximo possivel de 21 sem ultrapassar esse valor. ";
+    cout << "O pagamento e de 1.5x o valor investido\n" << endl;
 
     /*Flag criada pra decidir quando o jogo acaba*/
     bool jogando = 1;
@@ -74,7 +75,7 @@ void blackjack(int aposta, Apostador *cliente){
                 valorBanca += cartaBanca;
 
                 this_thread::sleep_for(chrono::milliseconds(500));
-                cout << "\nCarta da banca:\n" << cartaBanca << endl;
+                cout << "\nCarta da banca:" << cartaBanca << "\n" << endl;
             }
         }
         /*Para o jogo caso o valor ultrapasse os 21 pontos*/
