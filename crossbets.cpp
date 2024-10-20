@@ -1,3 +1,9 @@
+/*
+======================
+====CANDIDATO: 067====
+======================
+*/
+
 #include <iostream>
 #include <cstdlib>
 #include <thread>
