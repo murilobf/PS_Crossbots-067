@@ -161,7 +161,7 @@ void cacaNiqueis(int aposta, Apostador *cliente){
         }
     }
 
-    printf("\n\n");
+    cout <<"\n\n";
     
     /*Com base na variavel "vitoria" decide se o jogador perdeu ou ganhou o jogo*/
     if(vitoria){
@@ -196,17 +196,49 @@ void roleta(int aposta, Apostador *cliente){
 
     cin >> escolha;
 
-    /*Faz o sorteio do numero, isso e feito antes do jogador escolher o numero para que ja seja possivel dar a resposta na mesma
-    condicional onde o jogador escolhe o numero que quer, caso contrario seria necessario outro grupo de "if"*/
-    numSorteado = rand() % 37;
-
     /*Le o numero/o grupo de numeros que o jogador quer*/
 
     if(escolha == 1){
 
         cout << "Escolha um numero de 0 a 36 " << endl;
         cin >> numEscolhido;
+    }
 
+    else if(escolha == 2){
+        
+        cout << "Digite 0 para apostar na cor preta e 1 para apostar na cor vermelha " << endl;
+        cin >> numEscolhido;
+    }
+
+    else if(escolha == 3){
+
+        cout << "Digite 1 para apostar nos numeros de 1 a 12, 2 para apostar nos numeros de 13 a 24 e 3 para apostar nos numeros de 25 a 36 " << endl;
+        cin >> numEscolhido;
+    }
+
+    else{
+
+        cout << "Escolha invalida." << endl;
+    }
+
+    /*Faz o sorteio do numero*/
+    numSorteado = rand() % 37;
+
+    /*Um loop para dar simular a demora da roleta girando para o jogador*/
+    cout << "Girando a roleta: ";
+    for(int i = 0; i < 5; i++){
+
+        cout << " .";
+        this_thread::sleep_for(chrono::milliseconds(200));
+    }
+
+    cout << "\n\n";
+    cout << "O numero sorteado foi o: " << numSorteado << "\n" << endl;
+
+    /*Grupos de condicionais que verificam se o jogador venceu ou ganhou com base na escolha de numero e tipo de aposta. Para que o jogo
+    flua corretamente foi necessario deixa-los num grupo de "if" a parte*/
+    if(escolha == 1){
+        
         if(numSorteado == numEscolhido){
 
             cout << "Parabens, voce ganhou!" << endl;
@@ -223,9 +255,6 @@ void roleta(int aposta, Apostador *cliente){
     }
 
     else if(escolha == 2){
-        
-        cout << "Digite 0 para apostar na cor preta e 1 para apostar na cor vermelha " << endl;
-        cin >> numEscolhido;
 
         /*Para simplificar as coisas vermelho significa impar e preto par (exceto 0)*/
         if(numSorteado % 2 == numEscolhido && numSorteado != 0){
@@ -245,9 +274,6 @@ void roleta(int aposta, Apostador *cliente){
 
     else if(escolha == 3){
 
-        cout << "Digite 1 para apostar nos numeros de 1 a 12, 2 para apostar nos numeros de 13 a 24 e 3 para apostar nos numeros de 25 a 36 " << endl;
-        cin >> numEscolhido;
-
         /*Verifica se o numero sorteado esta dentro do grupo escolhido pelo jogador, a condicao basicamente ve se o numero esta dentro dos limites de cada grupo.
         Exemplificando para facilitar o entendimento da logica: se o jogador pegou o grupo 1 (1-12) e o numero sorteado foi o 13 (que entra na 2ª condicao), 13/12 da 1
         e sobra 1, com a soma de 1 da condicao fica 2 (que e justamente o grupo do 13), portanto o jogador perde. Agora se o jogador pegou o grupo 1 e o numero sorteado 
@@ -265,11 +291,7 @@ void roleta(int aposta, Apostador *cliente){
             cliente->derrotas++;
         }
     }
-
-    else{
-
-        cout << "Escolha invalida.";
-    }
+        
 }
 
 int pedeAposta(Apostador *cliente){
@@ -346,7 +368,11 @@ void chamaJogos(Apostador *cliente){
         if(!continua){
 
             cout << "Qual jogo deseja jogar?" << endl;
-            cout << "Lembrando que, para escolher, deve digitar 1 para Blackjack, 2 para Caca-Niqueis, 3 para Roleta e 4 para sair" << endl;
+            cout << "Lembrando que, para escolher, deve digitar: \n" << endl;
+            cout << "1 para Blackjack" << endl;
+            cout << "2 para Caca-Niqueis" << endl;
+            cout << "3 para Roleta" << endl;
+            cout << "4 para sair" << endl;
 
             cin >> escolha;
         }
