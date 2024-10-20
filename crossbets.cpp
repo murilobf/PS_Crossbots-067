@@ -299,7 +299,7 @@ void chamaJogos(Apostador *cliente){
     bool continua;
 
     cout << "DIGITE 1 PARA JOGAR BLACKJACK" << endl;
-    cout << "DIGITE 2 PARA JOGAR MÁQUINA CAÇA-NIQUEIS" << endl;
+    cout << "DIGITE 2 PARA JOGAR MAQUINA CACA-NIQUEIS" << endl;
     cout << "DIGITE 3 PARA JOGAR ROLETA" << endl;
     cout << "DIGITE 4 PARA SAIR" << endl;
 
