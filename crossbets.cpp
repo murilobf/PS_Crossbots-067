@@ -357,6 +357,13 @@ void chamaJogos(Apostador *cliente){
             cout << "Digite a quantidade que deseja apostar. Lembrando que voce tem " << cliente->creditos << " creditos" << endl;
             cin >> aposta;
         }
+
+        /*"Expulsa" o jogador do cassino quando o dinheiro acaba*/
+        if(cliente->creditos <= 0){
+
+            cout << "Perdeu todo o dinheiro, deve sair de nosso cassino. Mas volte sempre que tiver mais dinheiro para investir. " << endl;
+            escolha = 4;
+        }
     }
 }
 
