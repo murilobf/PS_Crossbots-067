@@ -213,7 +213,7 @@ void roleta(int aposta, Apostador *cliente){
 
     else if(escolha == 2){
         
-        cout << "Digite 0 para apostar na cor preta e 1 para apostar na cor vermelha " << endl;
+        cout << "Digite 0 para apostar na cor preta e 1 para apostar na cor vermelha " << endl; 
         cin >> numEscolhido;
     }
 
@@ -304,6 +304,7 @@ void roleta(int aposta, Apostador *cliente){
 int pedeAposta(Apostador *cliente){
 
     int aposta;
+    cout << "Quanto deseja apostar? Lembrando que seu saldo e de " << cliente->creditos << endl;
     cout << "Insira o valor que deseja investir:" << endl;
 
     cin >> aposta;
@@ -334,7 +335,6 @@ void chamaJogos(Apostador *cliente){
 
     cin >> escolha;
 
-    cout << "Quanto deseja apostar? Lembrando que seu saldo e de " << cliente->creditos << endl;
     aposta = pedeAposta(cliente);
 
     while(escolha != 4){
@@ -384,18 +384,16 @@ void chamaJogos(Apostador *cliente){
             cin >> escolha;
         }
 
-        /*Novamente, parece redundante mas evita de perguntar quando a pessoa quer sair*/
-        if(escolha != 4){
-
-            cout << "Digite a quantidade que deseja apostar. Lembrando que voce tem " << cliente->creditos << " creditos" << endl;
-            cin >> aposta;
-        }
-
         /*"Expulsa" o jogador do cassino quando o dinheiro acaba*/
         if(cliente->creditos <= 0){
 
-            cout << "Perdeu todo o dinheiro, deve sair de nosso cassino. Mas volte sempre que tiver mais dinheiro para investir. " << endl;
+            cout << "Acabamos de verificar que perdeu todo o dinheiro, deve sair de nosso cassino. Mas volte sempre que tiver mais para investir. " << endl;
             escolha = 4;
+        }
+
+        /*Novamente, parece redundante mas evita de pedir a aposta quando a pessoa quer sair*/
+        if(escolha != 4){
+            aposta = pedeAposta(cliente);
         }
     }
 }
@@ -441,6 +439,14 @@ void cassino(Apostador *cliente){
         int escolha;
 
         cin >> escolha; 
+
+        /*"Expulsa" o jogador do cassino quando o dinheiro acaba*/
+        if(cliente->creditos <= 0){
+
+            cout << "Acabamos de verificar que perdeu todo o dinheiro, deve sair de nosso cassino. Mas volte sempre que tiver mais para investir. " << endl;
+            escolha = 3;
+        }
+        
         fim = processaEscolha(escolha, cliente);
     }
 }
